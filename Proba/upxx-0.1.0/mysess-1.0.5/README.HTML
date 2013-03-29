@@ -1,0 +1,349 @@
+<html>
+<head>
+<title>MY_SESS 1.0.5 README</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC">
+<table width="450" border="0" cellpadding="5" bordercolor="#000000" bgcolor="#000000">
+  <tr bgcolor="#AAAAAA" bordercolor="#AAAAAA"> 
+    <td>
+      <p><b>MY_SESS.PHP V. 1.0.5 README<br>
+        <font size="2">(c) Eye Am Alive 2002. Roman Yaker.</font> </b></p>
+      <p><font size="2">This library is licensed under LGPL. Please review the 
+        LICENSE file for more information. The software may be used under most 
+        conditions, including, but not limited to, proprietary purposes.</font> 
+      </p>
+      </td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC" bordercolor="#CCCCCC"> 
+    <td><b>About:</b></td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td> 
+      <p>FYI: There is no affiliation between me and the PHP product and/or members 
+        of its team.</p>
+      <p>This is a compilation of functions under one class for database-based 
+        session handling. Currently, it only supports MySQL. If anyone would like 
+        to provide other versions that use other databases, please do.</p>
+      <p>I wrote it when I came to a point in my app-dev when I needed something 
+        other than PHP's built-in sessions, which I decided I couldn't use because 
+        of the way it's implemented. So, I decided to write a database-based session 
+        handler. And here it is.</p>
+      <p>Newest versions and news available at <a href="http://www.eyeamalive.wiredfusion.net/mysess/">http://www.eyeamalive.wiredfusion.net/mysess/ 
+        </a></p>
+      <p>This file contains some technical information on using this biblib. A 
+        small technical paper may soon find its way out here... on the short &quot;ins-and-outs&quot; 
+        of the works of this monsterous workity shworkity ... _work_.</p>
+      <p>I'm approachable: approach me all you want. go ahead.</p>
+      <p>You can contact me at <a href="mailto:r.yaker@wiredfusion.net?subject=mysess">r.yaker@wiredfusion.net</a>. 
+        Don't let my out-of-town name fool you. I'm actually...from out of town.</p>
+      <p>Say I'm not insane to be speaking to a web page. I'm already expecting 
+        _somebody_ to be reading this. It's late at night, and i'm finding this 
+        to be amusing. Thanks. Yeah, it's always late at night.</p>
+    </td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC" bordercolor="#CCCCCC"> 
+    <td><b>Install:</b></td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td> 
+      <p>1) Configure <b>sess.config.inc</b> file.<br>
+        2) Run <b>my_sess.sql</b> against your mysql client.<br>
+        3) Include <b>my_sess.php</b> at the top of your scripts. </p>
+      <p>123-abc. And it's ready to use.</p>
+      </td>
+  </tr>
+</table>
+<p><br>
+</p>
+<table width="450" border="1" cellpadding="3" cellspacing="0" bordercolor="#000000">
+  <tr bordercolor="#CCCCCC" bgcolor="#CCCCCC"> 
+    <td colspan="2" height="23"><b>Class Functions:<a name="#func"></a></b></td>
+    <td width="50" height="23" bordercolor="#CCCCCC"> 
+      <div align="left"><font size="2">&#134;</font>Return</div>
+    </td>
+    <td width="41" height="23" bordercolor="#CCCCCC"> 
+      <div align="left"><font size="2">*</font>Global</div>
+    </td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td width="113">- <a href="#put">sess_put()</a></td>
+    <td width="212">Add (put) variable into session</td>
+    <td width="50">no</td>
+    <td width="41">depends</td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td width="113">- <a href="#get">sess_get()</a></td>
+    <td width="212">Get variable(s) from session</td>
+    <td width="50">yes</td>
+    <td width="41">yes</td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td width="113">- <a href="#key">sess_mk_key()</a></td>
+    <td width="212">Create new session</td>
+    <td width="50">yes</td>
+    <td width="41">no(!)</td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td width="113">- <a href="#clean">sess_clean()</a></td>
+    <td width="212">Clean garbage (expired sessions)</td>
+    <td width="50">no</td>
+    <td width="41">no</td>
+  </tr>
+  <tr bordercolor="#FFFFFF"> 
+    <td colspan="4"><font size="1"><font size="2">* </font>Connotates the existence 
+      of a global variable &nbsp;&nbsp;&nbsp;</font><font size="2">&#134; <font size="1">Connotates 
+      a return made by the function</font></font></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#ADADAD" bordercolor="#ADADAD"> 
+    <td><b>FUNCTION DESCRIPTIONS:</b></td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC"> 
+    <td bordercolor="#CCCCCC">void <b>sess_put( </b>string<b> varname, </b>mix<b> 
+      var [, </b>string<b> sess_key] )<a name="put"></a></b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0"> 
+    <td bordercolor="#ECEEF0"> 
+      <p>Creates a variable in the session.</p>
+      <p><b>sess_put() </b> will add/update variables to current session.</p>
+      <p>The <b>varname </b>parameter is the name<b> </b>of the variable being 
+        passed. Later, the name is &quot;elementized&quot; into a global array. 
+        See configuration file for customization of the global array session variable.<br>
+        <b><br>
+        </b>The <b>var </b>parameter is the variable itself (its data), being 
+        passed to the session.</p>
+      <p>You can initialize sessions by not supplying a session key (<b>sess_key</b>).</p>
+      <p>If <i><b>sess_key</b></i> is not supplied, a new key is created and session 
+        thus initialized. In this case, the <i>key</i> can be called via the GLOBAL 
+        variable <i><b>$sess_key</b></i>.</p>
+      <p> Use <b><i>sess_key=$sess_key</i></b> in GET/POST and in other urls where 
+        you want to interface session handling.</p>
+      <p>Sessions are referenced by their keys.</p>
+      <p align="center">*** ***** ***</p>
+      <p>When updating/inserting variables to a current session, you must supply 
+        the <b>sess_key</b> argument. Otherwise, the point of session-handling 
+        is missed. </p>
+      <p><b>*WARNING:</b> Updating variables will destroy all previous values 
+        and insert only all new values via your syntax. So:</p>
+      <p><b>Wrong:</b> sess_put(&quot;foo&quot;, <b>$foo[0][1]</b>, $sess_key);<br>
+        This will only insert one element of the whole matrix array and appoint 
+        it to a variable called &quot;foo&quot;. Thus, <i>$foo</i> will now only 
+        carry a single element of the previous matrix array <i>$foo.</i><br>
+        <br>
+        <b>Correct:</b> sess_put(&quot;foo&quot;, <b>$foo</b>, $sess_key);<br>
+        This will pass the complete variable (matrix, and all).</p>
+      <p><b>**</b>Notice the opposite position of parameters of the sess_put() 
+        and sess_get() functions.<br>
+      </p>
+      <p>&nbsp; </p>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#D2D2D2"> 
+    <td bordercolor="#D2D2D2"><b>EXAMPLE:</b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0" bordercolor="#ECEEF0"> 
+    <td> 
+      <p><b>[from index.php:]</b></p>
+      <p>&lt;?<br>
+      </p>
+      <p><b>$my_sess = new my_sess();</b></p>
+      <p>$grades[0]=90;<br>
+        $grades[1]=84; </p>
+      <p><b>$my_sess-&gt;sess_put(</b>&quot;grades&quot;, $grades); <font color="#003366"><i>// 
+        will also generate global $sess_key</i></font><br>
+        <br>
+        echo &quot;&lt;a href=\&quot;record.php?sess_key=<b>$sess_key</b>\&quot;&gt;&quot;; 
+        <i> <font color="#003366">// note <b>$sess_key</b>, global variable created 
+        by <b>sess_put()</b></font></i></p>
+      <p>?&gt;<br>
+        <br>
+        <b>[from record.php]</b></p>
+      <p>&lt;?</p>
+      <p><b>$my_sess = new my_sess();<br>
+        <br>
+        $my_sess-&gt;sess_get(</b> $sess_key <b>);<br>
+        <br>
+        </b>echo<b> $_MY_SESS['</b>grades<b>'][0];<br>
+        <br>
+        </b>$_MY_SESS['grades'][1] = 96;</p>
+      <p>$my_sess-&gt;sess_put(&quot;grades&quot;, $_MY_SESS['grades'], $sess_key);<br>
+        <br>
+        $grades = $_MY_SESS['grades'];</p>
+      <p>?&gt;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC"> 
+    <td bordercolor="#CCCCCC">mix array<b> sess_get( </b>string<b> sess_key, </b>string 
+      <b><b>varname</b>)<a name="get"></a></b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0"> 
+    <td bordercolor="#ECEEF0"> 
+      <p>Returns session variables back into environment.</p>
+      <p>There are two ways to retrieve session variables using <b>sess_get().</b><br>
+        <br>
+        First, is by having the function return the value to a variable.</p>
+      <p>The second way, is by using the global variable $<b>_MY_SESS</b> </p>
+      <p>The array <b>$_MY_SESS</b> contains all session variables as elements.</p>
+      <p><b>**</b>Notice the opposite position of parameters of the <b>sess_get() 
+        </b>and <b>sess_put() </b>functions. </p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+  <tr valign="top" bgcolor="#D2D2D2"> 
+    <td bordercolor="#D2D2D2"><b>EXAMPLE:</b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0" bordercolor="#ECEEF0"> 
+    <td> 
+      <p>&lt;?</p>
+      <p><b>$sess = new my_sess(); <i><font color="#003366">// </font></i></b><i><font color="#003366">assign 
+        class to $sess</font></i></p>
+      <p><i><font color="#003366">//assuming $foo has been added to the session....</font></i></p>
+      <p><b>$sess-&gt;sess_get($sess_id, &quot;foo&quot;);<br>
+        </b></p>
+      <p>echo <b>$_MY_SESS['foo'];</b><br>
+      </p>
+      <p>?&gt;<br>
+      </p>
+      <p>or </p>
+      <p>&lt;?<br>
+        $foo = <b>$sess-&gt;sess_get($sess_id, &quot;foo&quot;); <font color="#003366"><i>// 
+        </i></font></b><font color="#003366"><i>the variable is returned</i></font><b><br>
+        </b>?&gt;<b> </b></p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC"> 
+    <td bordercolor="#CCCCCC">string<b> sess_mk_key( </b>void<b> )<a name="key"></a></b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0"> 
+    <td bordercolor="#ECEEF0"> 
+      <p>Creates a key to be used with session reference.<br>
+        <br>
+        Calling this function will create and return a session key. This key (session 
+        id) is used as <i><b>sess_key.</b></i></p>
+      <p>This function may be called once, for the first time, to create a single 
+        key to be used in referencing the session.</p>
+      <p><b><a href="#put">Sess_put</a></b><a href="#put"><b>()</b></a> is also 
+        capable of creating a session key. Please see this function for its use.<br>
+      </p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#D2D2D2"> 
+    <td bordercolor="#D2D2D2"><b>EXAMPLE:</b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0" bordercolor="#ECEEF0"> 
+    <td> 
+      <p>&lt;?</p>
+      <p><b>$sess_key = $sess-&gt;sess_mk_key();<br>
+        <br>
+        $sess-&gt;sess_put([...], $sess_key);</b><font color="#FFFFFF"> <font color="#003366">// 
+        using session with $sess_key</font></font><b><br>
+        <br>
+        $sess-&gt;sess_get($sess_key, [...]);<br>
+        </b></p>
+      <p>?&gt;</p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<br>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr bgcolor="#CCCCCC"> 
+    <td bordercolor="#CCCCCC">mix array<b> sess_clean( </b>[string <b>sess_key</b>]<b> 
+      )<a name="clean"></a></b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0"> 
+    <td bordercolor="#ECEEF0"> 
+      <p>Cleans session garbage and gets rid of expired sessions<br>
+        <br>
+        If <b><i>sess_key</i></b> is provided, all expired sessions of <b><i>sess_key</i> 
+        </b>are cleaned out. </p>
+      <p>If no arguments are passed, all expired sessions are cleaned.</p>
+      <p>It's recommended that you use this function at the dead end of all your 
+        scripts and applications. Besides cleaning your disk, this will optimize 
+        database performance too.</p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+  <tr valign="top" bgcolor="#D2D2D2"> 
+    <td bordercolor="#D2D2D2"><b>EXAMPLE:</b></td>
+  </tr>
+  <tr valign="top" bgcolor="#ECEEF0" bordercolor="#ECEEF0"> 
+    <td> 
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table width="450" border="1" cellspacing="0" cellpadding="3" bordercolor="#000000">
+  <tr> 
+    <td bordercolor="#CCCCCC" bgcolor="#CCCCCC"><b>Example script using all functions:</b></td>
+  </tr>
+  <tr valign="top" bordercolor="#FFFFFF"> 
+    <td> 
+      <p>&lt;?</p>
+      <p>include(<b>&quot;my_sess.php&quot;</b>);</p>
+      <p><b>$my_session = new my_sess();</b><br>
+        <br>
+        <i><font color="#003366">// populate $cars</font></i><br>
+        $cars['mercedes'][]=&quot;CLK300&quot;;<br>
+        $cars['mercedes'][]=&quot;SL500&quot;;<br>
+        $cars['mercedes'][]=&quot;C230&quot;;<br>
+        $cars['acura'][]=&quot;TL3.2&quot;;<br>
+        $cars['yugo'][]=&quot;nowhere&quot;; <font color="#003366"><i>// ha ha 
+        ...</i></font></p>
+      <p><font color="#003366"><i>// $types</i></font><br>
+        $types[] = &quot;Waggon&quot;;<br>
+        $types[] = &quot;Sedan&quot;;<br>
+        $types[] = &quot;Coupe&quot;;</p>
+      <p>$color = &quot;green&quot;;</p>
+      <p><br>
+        <br>
+        <b>$sess_id = $key = $my_session-&gt;sess_mk_key();</b> </p>
+      <p><b>$my_session-&gt;$sess_put (&quot;cars&quot;, $cars, $key );<br>
+        </b><b>$my_session-&gt;$sess_put(&quot;types&quot;, $types, $key);</b></p>
+      <p><b>$my_session-&gt;$sess_get($key); </b><font color="#003366"><i>// will 
+        return _all_ session variables</i></font><i><br>
+        <br>
+        <font color="#003366">/* --- <br>
+        <b>$my_session-&gt;$sess_get($key, &quot;types&quot;)</b>; // will return 
+        only the types variable<br>
+        --- */ </font></i><br>
+        <b><br>
+        </b>echo<b> $_MY_SESS['cars']</b>['mercedes'][0];<i> <font color="#003366">// 
+        will print &quot;CLK300&quot;</font></i></p>
+      <p>$types = <b>$_MY_SESS['types']</b>;</p>
+      <p>echo $types[2]; <font color="#003366"><i>// will print &quot;Coupe&quot;</i></font></p>
+      <p><b>$my_session-&gt;$sess_clean(); </b><font color="#003366"><i>// clean 
+        expired data</i></font></p>
+      <p><b> </b></p>
+      </td>
+  </tr>
+</table>
+<p>good luck.</p>
+<p>&nbsp;</p>
+</body>
+</html>
